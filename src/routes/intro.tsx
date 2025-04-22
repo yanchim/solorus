@@ -1,18 +1,51 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { A } from '@solidjs/router';
+import { createEffect, createSignal } from 'solid-js';
+import { Title } from '@solidjs/meta';
+
+const win = "Windows";
+const nix = "GNU/Linux & macOS";
+
+const ss = "shadowsocks";
+const tun = "tun";
+
+function getOS(): string {
+  const userAgent = navigator.userAgent;
+
+  const os = {
+    isWindows: /Win/.test(userAgent),
+    isMacOS: /Mac/.test(userAgent),
+    isLinux: /Linux/.test(userAgent),
+    isMobile: /Mobi|Android/.test(userAgent),
+  };
+
+  if (os.isWindows) {
+    return win;
+  } else {
+    return nix;
+  };
+}
 
 export default function Intro() {
+  const [os, setOS] = createSignal<string>();
+
+  const typeTabs = [ss, tun];
+  const [activeTypeTab, setActiveTypeTab] = createSignal(typeTabs[0]);
+
+  createEffect(() => setOS(getOS()));
+
   return (
-    <main class='text-center mx-auto text-gray-700 p-4'>
-      <Tabs defaultValue='account' class='w-400px'>
+    <main class='text-gray-700 p-4'>
+      <Title>说明</Title>
+      <Tabs defaultValue={os()} class='w-400px'>
         <TabsList>
-          <TabsTrigger value='account'>Account</TabsTrigger>
-          <TabsTrigger value='password'>Password</TabsTrigger>
+          <TabsTrigger value='Windows'>Windows</TabsTrigger>
+          <TabsTrigger value='GNU/Linux & macOS'>*nix</TabsTrigger>
         </TabsList>
-        <TabsContent value='account'>
+        <TabsContent value='Windows'>
           Make changes to your account here.
         </TabsContent>
-        <TabsContent value='password'>Change your password here.</TabsContent>
+        <TabsContent value='GNU/Linux & macOS'>Change your password here.</TabsContent>
       </Tabs>
       <p>
         <code>sing-box</code> 默认配置文件为 <code>config.json</code>
@@ -22,17 +55,6 @@ export default function Intro() {
       <p>
         可以通过 <code>sing-box run -c xxx.json</code> 指定运行名为{' '}
         <code>xxx.json</code> 的配置文件
-      </p>
-      <p class='mt-8'>
-        Visit{' '}
-        <a
-          href='https://solidjs.com'
-          target='_blank'
-          class='text-sky-600 hover:underline'
-        >
-          solidjs.com
-        </a>{' '}
-        to learn how to build Solid apps.
       </p>
       <p class='my-4'>
         <A href='/' class='text-sky-600 hover:underline'>
