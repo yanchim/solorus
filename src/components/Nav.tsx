@@ -1,4 +1,4 @@
-import { useLocation } from '@solidjs/router';
+import { A, useLocation } from '@solidjs/router';
 
 export default function Nav() {
   const location = useLocation();
@@ -13,13 +13,13 @@ export default function Nav() {
     <nav class='bg-solid'>
       <ul class='container flex items-center justify-around p-3 text-gray-200'>
         <li class={`border-b-2 ${active('/')}`}>
-          <a href='/'>爱莲者</a>
+          <A href='/'>爱莲者</A>
         </li>
         <li class={`border-b-2 ${active('/download')}`}>
-          <a href='/download'>下载</a>
+          <A href='/download'>下载</A>
         </li>
         <li class={`border-b-2 ${active('/intro')}`}>
-          <a href='/intro'>说明</a>
+          <A href='/intro'>说明</A>
         </li>
       </ul>
     </nav>

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "褚",
+    "desktop": "https://chu.ailianzhe.life",
+    "mobile": "https://chum.ailianzhe.life",
+    "bridge": ""
+  },
+  {
+    "name": "肥",
+    "desktop": "https://fei.ailianzhe.life",
+    "mobile": "https://feim.ailianzhe.life",
+    "bridge": "42.192.104.81:3443"
+  },
+  {
+    "name": "桐",
+    "desktop": "https://tong.ailianzhe.life",
+    "mobile": "https://tongm.ailianzhe.life",
+    "bridge": ""
+  },
+  {
+    "name": "璇",
+    "desktop": "https://xuan.ailianzhe.life",
+    "mobile": "https://xuanm.ailianzhe.life",
+    "bridge": ""
+  },
+  {
+    "name": "众",
+    "desktop": "https://zhong.ailianzhe.life",
+    "mobile": "https://zhongm.ailianzhe.life",
+    "bridge": ""
+  }
+]

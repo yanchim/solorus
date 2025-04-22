@@ -23,11 +23,11 @@ interface ReleaseResponse {
 const owner = 'sagernet';
 const repo = 'sing-box';
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-// const DOWNLOAD_DIR = path.join(__dirname, 'sing-box');
-// const RECORD_FILE = path.join(DOWNLOAD_DIR, 'record.json');
+const DOWNLOAD_DIR = path.join(__dirname, 'sing-box');
+const RECORD_FILE = path.join(DOWNLOAD_DIR, 'record.json');
 
 let version = '';
 let date = new Date();
@@ -49,17 +49,20 @@ async function getLatestRelease(): Promise<ReleaseResponse> {
 }
 
 function setupProject() {
-  // if (fs.existsSync(DOWNLOAD_DIR) && fs.existsSync(RECORD_FILE)) {
-  //   const content = fs.readFileSync(RECORD_FILE, { encoding: 'utf-8' });
-  //   const data: { version: string; date: Date } = JSON.parse(content);
-  //   version = data.version;
-  //   date = new Date(data.date);
-  // } else if (fs.existsSync(DOWNLOAD_DIR) && !fs.existsSync(RECORD_FILE)) {
-  //   fs.writeFileSync(RECORD_FILE, JSON.stringify({ version, date }));
-  // } else {
-  //   fs.mkdirSync(DOWNLOAD_DIR, { recursive: true });
-  //   fs.writeFileSync(RECORD_FILE, JSON.stringify({ version, date }));
-  // }
+  if (fs.existsSync(DOWNLOAD_DIR) && fs.existsSync(RECORD_FILE)) {
+    console.log('Dir and record file existed, update date.');
+    const content = fs.readFileSync(RECORD_FILE, { encoding: 'utf-8' });
+    const data: { version: string; date: Date } = JSON.parse(content);
+    version = data.version;
+    date = new Date(data.date);
+  } else if (fs.existsSync(DOWNLOAD_DIR) && !fs.existsSync(RECORD_FILE)) {
+    console.log('Dir existed while record file not, create a new record file.');
+    fs.writeFileSync(RECORD_FILE, JSON.stringify({ version, date }));
+  } else {
+    console.log('Create a new dir to store record.');
+    fs.mkdirSync(DOWNLOAD_DIR, { recursive: true });
+    fs.writeFileSync(RECORD_FILE, JSON.stringify({ version, date }));
+  }
 }
 
 export default defineTask({
@@ -69,7 +72,6 @@ export default defineTask({
   },
   async run() {
     setupProject();
-    console.log('record file: ', RECORD_FILE);
     return { result: 0 };
   },
 });
