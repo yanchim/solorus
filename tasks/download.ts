@@ -1,4 +1,4 @@
-import { defineTask } from 'nitropack/runtime';
+// import { defineTask } from 'nitropack/runtime';
 import path, { dirname } from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -65,15 +65,15 @@ function setupProject() {
   }
 }
 
-export default defineTask({
-  meta: {
-    name: 'download',
-    description: 'Download latest sing-box executable file',
-  },
-  async run() {
-    setupProject();
-    return { result: 0 };
-  },
-});
+// export default defineTask({
+//   meta: {
+//     name: 'download',
+//     description: 'Download latest sing-box executable file',
+//   },
+//   async run() {
+//     setupProject();
+//     return { result: 0 };
+//   },
+// });
 
 export { version, date };
